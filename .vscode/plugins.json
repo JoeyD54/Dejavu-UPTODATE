@@ -1,0 +1,1 @@
+{"plugins":["cordova-plugin-whitelist","cordova-plugin-vibration","cordova-plugin-device","cordova-plugin-permission","cordova-plugin-android-permissions","cordova-plugin-geolocation","cordova-plugin-request-location-accuracy","cordova.plugins.diagnostic"]}
