@@ -3,11 +3,6 @@
 * for the program                                 * 
 **************************************************/
 
-/*
-$("#insertButton").on("touched", function(){
-    alert('jquery works');
-});
-*/
 
 function showModal(){
     document.getElementById('toDoModal').style.display='block';
@@ -118,9 +113,22 @@ function callGoogle(){
 function onSuccess(position) {
     var lat = position.coords.latitude;
     var long = position.coords.longitude;
+    var currentLoc = lat + "," + long; 
+    var tempLocation = "250 Riverfront Dr, Detroit, MI 48226";
+
 
     document.getElementById('printApiCall').innerHTML = "lat: " + lat + "\n long: " + long;
+
+    if(window.confirm("A location was found to handle one of your items! Would you like to go " +
+            "there now? \n\n Location found: " + tempLocation)){
+                
+            window.open("geo:0,0?q=" + tempLocation + "(" + tempLocation + ")" + '_system');
+        }
     
+    //window.open("geo:0,0?q=" + currentLoc + "(" + currentLoc + ")" + '_system');
+    
+    //window.open("geo:0,0?q=" + tempLocation + "(" + tempLocation + ")" + '_system');
+
     //Call up google and get an item based off of phone's current position at time oh hitting button.
     
     var HTTPREQ = "https://maps.googleapis.com/maps/api/geocode/xml?latlng=" + lat + "," + long +"&key=AIzaSyD1BD2SIhcmvk7SmV1NGBrgaEQOLqjx4fI"; 
@@ -130,14 +138,19 @@ function onSuccess(position) {
     var LATLONG = lat + "," + long;
     var KEY = "AIzaSyD1BD2SIhcmvk7SmV1NGBrgaEQOLqjx4fI";
     $.ajax({
-        //url: "https://maps.googleapis.com/maps/api/place/findplacefromtext/json",
-        //url: URLREQ,
         url: "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=tires&inputtype=textquery&fields=formatted_address,name,rating&locationbias=circle:2000@42.3330,83.0465&key=AIzaSyD1BD2SIhcmvk7SmV1NGBrgaEQOLqjx4fI",
         type: "GET",
         success: function(data){
             alert('data');
         }
     });
+
+    //if(currentLoc != ""){
+    notifyUser(currentLoc);
+    //}
+
+    //directions.navigateTo(lat,long);
+        
     //.done(function(data){
     //    alert('data');
     //});
@@ -164,6 +177,39 @@ function onSuccess(position) {
     xmlhttp.send();
 */
     //document.getElementById('printApiCall').innerHTML = returnJSON;
+}
+
+function notifyUser(currentLoc){
+    let props = cordova.plugins.notification.local.getDefaults();
+
+    let inThreeSec = new Date();
+    inThreeSec.setSeconds(inThreeSec.getSeconds()+1);
+    let id = new Date().getMilliseconds();
+
+    let noteOptions = {
+        id: id,
+        title: 'Title test notification',
+        text: "put the found location: " + currentLoc,
+        at: inThreeSec,
+        badge: 1,
+        data: {
+            prop: "prop value",
+            num: 42
+        }
+    };
+
+    if(prop.actions){
+        noteOptions.actions = [{id: "yes", title: "Take me there"}, {id: "no", title: "No"}];
+    }
+
+    cordova.plugins.notification.local.schedule(noteOptions);
+
+    navigator.notification.alert("added notification id " + id);
+
+    //This will be used when user hits no
+    //cordova.plugins.notification.local.clear(id, function(){
+
+    //});
 }
 
 function getGoogleXML(xml){

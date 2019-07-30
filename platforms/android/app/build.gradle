@@ -90,6 +90,8 @@ ext {
 }
 
 // PLUGIN GRADLE EXTENSIONS START
+apply from: "../cordova-plugin-badge/dejavu-badge.gradle"
+apply from: "../cordova-plugin-local-notification/dejavu-localnotification.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras1 = file('build-extras.gradle').exists()
@@ -269,6 +271,7 @@ dependencies {
     implementation "com.android.support:support-v4:28.+"
     implementation "com.android.support:appcompat-v7:28.+"
     implementation "com.google.android.gms:play-services-location:16.+"
+    implementation "com.android.support:support-v4:26.+"
     // SUB-PROJECT DEPENDENCIES END
 }
 

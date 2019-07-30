@@ -14,7 +14,7 @@
 let app = {
     permissions: null,
     init: function () {
-        document.addEventListener('deviceready', app.ready);
+        document.addEventListener('deviceready', app.ready, false);
         console.log('init');
     },
     ready: function () {
@@ -24,18 +24,25 @@ let app = {
         
         //add button listeners
         console.log('adding listeners');
-        document.addEventListener('deviceready', loadXMLTable);
-        document.addEventListener('deviceready', app.geoPerm);
         document.getElementById('callApi').addEventListener('click', callGoogle);
-        document.getElementById('insertButton').addEventListener('click', showModal, true);
-        document.addEventListener('backbutton', onBackKeyDown, false);
+        document.getElementById('insertButton').addEventListener('click', showModal);
+        document.addEventListener('backbutton', onBackKeyDown);
         document.getElementById('closeScreen').addEventListener('click', closeModal);
         document.getElementById('cancelButton').addEventListener('click', closeModal);
         //document.getElementById('submitButton').addEventListener('click', addToXML);
         document.getElementById('doXMLWork').addEventListener('click', loadXMLTable);
+        document.addEventListener('deviceready', loadXMLTable);
+        document.addEventListener('deviceready', app.geoPerm);
+        document.addEventListener('deviceready', callGoogle);
 
-        //navigator.geolocation.watchPosition(onSuccess, onError);
+        cordova.plugins.notification.local.on("click", function(notification){
+            navigator.notification.alert('clicked: ' + notification.id);
 
+        });
+        cordova.plugins.notification.local.on("trigger", function(notification){
+            navigator.notification.alert('triggered: ' + notification.id);            
+        });
+         
         cordova.plugins.diagnostic.isGpsLocationEnabled(function(enabled){
             //GPS is on, find location
             if(enabled == "enabled"){
@@ -44,7 +51,7 @@ let app = {
                         timeout: 20000, 
                         enableHighAccuracy: true};
 
-                    navigator.geolocation.w(onSuccess, onError, options);
+                    navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
                 }
             } else {
                 cordova.plugins.locationAccuracy.canRequest(function(canRequest){
@@ -87,6 +94,7 @@ let app = {
                 });
             } else {
                 //alert ('your coordinates:');
+                //callGoogle();
             }
         }, function (err) {
             console.log(err);

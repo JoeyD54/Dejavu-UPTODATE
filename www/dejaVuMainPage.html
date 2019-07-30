@@ -28,7 +28,6 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <meta http-equiv="Content-Security-Policy" content="
             default-src 'self' data: gap:
                 *;
@@ -43,8 +42,6 @@
             connect-srv 'self' 'unsafe-inline' 'unsafe-eval'
                 *
             ">
-        <!---<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1BD2SIhcmvk7SmV1NGBrgaEQOLqjx4fI&libraries=places"></script>-->
-        <script src="https://maps.googleapis.com/maps/api/js?"></script>
         <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
@@ -53,6 +50,8 @@
         <meta name='description' content="width=device-width, initial-scale=1"/>
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <link rel="stylesheet" href="css/w3.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?"></script>
         <title>Deja Vu</title>
     </head>
     <body id="bodyLoad">
@@ -78,7 +77,7 @@
                             <span id="closeScreen" class="we-button w3-display-topright w3-hover-red w3-xlarge" title="Close">X</span>
                             <h3>Insert Item</h3>
                         </header>
-                        <form method="POST" class = "w3-container">
+                        <form action="php/addToXML.php" class = "w3-container">
                             <div class="w3-section">
                                 <label><b>Item Needed:</b></label>
                                 <input class="w3-input w3-border w3-margin-bottom" placeholder="What do you need to get?"

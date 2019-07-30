@@ -32,7 +32,17 @@
     "cordova-plugin-request-location-accuracy": {
       "PLAY_SERVICES_LOCATION_VERSION": "16.+",
       "PACKAGE_NAME": "com.example.dejavu"
+    },
+    "cordova-plugin-directions": {
+      "PACKAGE_NAME": "com.example.dejavu"
+    },
+    "cordova-plugin-local-notification": {
+      "PACKAGE_NAME": "com.example.dejavu"
     }
   },
-  "dependent_plugins": {}
+  "dependent_plugins": {
+    "cordova-plugin-badge": {
+      "PACKAGE_NAME": "com.example.dejavu"
+    }
+  }
 }
