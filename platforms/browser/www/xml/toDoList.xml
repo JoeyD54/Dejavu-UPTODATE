@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<list>
+    <todo>
+        <item>Tires</item>
+        <dest>closest</dest>
+    </todo>
+    <todo>
+        <item>Ice cream</item>
+        <dest>closest</dest>
+    </todo>
+</list>

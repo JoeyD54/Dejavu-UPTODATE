@@ -1,0 +1,11 @@
+{
+  "background_color": "#FFF",
+  "display": "standalone",
+  "name": "DejaVu",
+  "short_name": "DejaVu",
+  "version": "com.example.dejavu",
+  "description": "A sample Apache Cordova application that responds to the deviceready event.",
+  "author": "Apache Cordova Team",
+  "icons": [],
+  "start_url": "dejaVuMainPage.html"
+}

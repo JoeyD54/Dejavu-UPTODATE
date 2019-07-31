@@ -1,0 +1,46 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-android-permissions": {
+      "PACKAGE_NAME": "com.example.dejavu"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.example.dejavu"
+    },
+    "cordova-plugin-directions": {
+      "PACKAGE_NAME": "com.example.dejavu"
+    },
+    "cordova-plugin-geolocation": {
+      "PACKAGE_NAME": "com.example.dejavu"
+    },
+    "cordova-plugin-local-notification": {
+      "PACKAGE_NAME": "com.example.dejavu"
+    },
+    "cordova-plugin-permission": {
+      "PACKAGE_NAME": "com.example.dejavu"
+    },
+    "cordova-plugin-request-location-accuracy": {
+      "PACKAGE_NAME": "com.example.dejavu"
+    },
+    "cordova-plugin-vibration": {
+      "PACKAGE_NAME": "com.example.dejavu"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.example.dejavu"
+    },
+    "cordova.plugins.diagnostic": {
+      "PACKAGE_NAME": "com.example.dejavu"
+    }
+  },
+  "dependent_plugins": {
+    "cordova-plugin-badge": {
+      "PACKAGE_NAME": "com.example.dejavu"
+    }
+  }
+}

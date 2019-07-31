@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <list>
     <todo>
-        <item>soup</item>
+        <item>Tires</item>
         <dest>closest</dest>
     </todo>
     <todo>
-        <item>tires</item>
+        <item>Ice cream</item>
         <dest>closest</dest>
     </todo>
+    <todo>
+        <item>pears</item>
+        <dest>Meijer</dest>
+    </todo>
+    
 </list>

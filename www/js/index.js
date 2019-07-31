@@ -24,13 +24,13 @@ let app = {
         
         //add button listeners
         console.log('adding listeners');
-        document.getElementById('callApi').addEventListener('click', callGoogle);
+        //document.getElementById('doXMLWork').addEventListener('click', loadXMLTable);
         document.getElementById('insertButton').addEventListener('click', showModal);
+        document.getElementById('callApi').addEventListener('click', callGoogle);
         document.addEventListener('backbutton', onBackKeyDown);
         document.getElementById('closeScreen').addEventListener('click', closeModal);
         document.getElementById('cancelButton').addEventListener('click', closeModal);
         //document.getElementById('submitButton').addEventListener('click', addToXML);
-        document.getElementById('doXMLWork').addEventListener('click', loadXMLTable);
         document.addEventListener('deviceready', loadXMLTable);
         document.addEventListener('deviceready', app.geoPerm);
         document.addEventListener('deviceready', callGoogle);
@@ -45,7 +45,7 @@ let app = {
          
         cordova.plugins.diagnostic.isGpsLocationEnabled(function(enabled){
             //GPS is on, find location
-            if(enabled == "enabled"){
+            if(enabled){
                 if(document.addEventListener('deviceready')){
                     let options = {maximumAge: 1000 * 60 * 60,
                         timeout: 20000, 

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <meta http-equiv="Content-Security-Policy" content="
+            default-src 'self' data: gap:
+                *;
+            script-src 'self' 'unsafe-inline' 'unsafe-eval'
+                *;
+            style-src 'self' 'unsafe-inline' 'unsafe-eval'
+                *;
+            media-src 'self' 'unsafe-inline' 'unsafe-eval'
+                *;
+            img-src 'self' 'unsafe-inline' 'unsafe-eval'
+                *;
+            connect-srv 'self' 'unsafe-inline' 'unsafe-eval'
+                *
+            ">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+        <meta name='keywords' content='deja,vu,deja vu, list, list keeper, gps, notifications, reminder'/>
+        <meta name='description' content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link rel="stylesheet" href="css/w3.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?"></script>
+        <title>Deja Vu</title>
+    </head>
+    <body id="bodyLoad">
+        <div class="center">
+            <h1>Deja Vu</h1>
+            <h3>Your to-do list</h3>
+        </div>
+        <button id='doXMLWork'>do XML PLEASE</button>
+        <table id='printTable'></table>
+        <p id="printHere"></p>
+        <button id='callApi'>Call Google Api</button>
+        <p id="printApiCall"></p>
+
+        <div class="w3-container">
+            <ul id="printLists" class="w3-ul w3-card-4"></ul>
+        </div>
+        <div class="w3-container">
+            <button id="insertButton" class="w3-button w3-teal w3-large">Add Item</button>
+            <div id="toDoModal" class="w3-modal w3-center">
+                <div class="w3-modal-content w3-animate-bottom w3-card-4">
+                    <div class="w3-center">
+                        <header class="w3-container w3-teal">
+                            <span id="closeScreen" class="we-button w3-display-topright w3-hover-red w3-xlarge" title="Close">X</span>
+                            <h3>Insert Item</h3>
+                        </header>
+                        <form action="php/addToXML.php" class = "w3-container">
+                            <div class="w3-section">
+                                <label><b>Item Needed:</b></label>
+                                <input class="w3-input w3-border w3-margin-bottom" placeholder="What do you need to get?"
+                                    name="item" required>
+                                <label><b>From:</b></label>
+                                <input class="w3-input w3-border" placeholder="Where do you want to get this item?" name="location">
+                                <button id="submitButton" class="w3-button w3-block w3-teal w3-section w3-padding" type="submit">Submit</button>
+                            </div>
+                        </form>
+                        <div class="w3-container w3-border-top w3-paddin-16 w3-light-grey">
+                            <button id="cancelButton" type="button" class="w3-button w3-red">Cancel</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/eventHandler.js"></script>
+        <script type="text/javascript" src="js/xmlRequests.js"></script>
+        </body>
+</html>

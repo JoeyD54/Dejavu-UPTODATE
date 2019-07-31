@@ -22,29 +22,13 @@ function loadXMLTable(){
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+            if(document.getElementById('submitButton'))
             displayXMLTable(this);
+            
         }
     };
     xmlhttp.open("GET", "xml/toDoList.xml", true);
     xmlhttp.send();
-    /*
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "toDoList.xml", true);
-    xhttp.send();
-    displayXMLTable(xhttp);
-    */
-    /*
-    var xhttp = new XMLHttpRequest();
-    document.getElementById('printHere').innerHTML = xhttp;
-    
-    xhttp.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status == 200){
-            displayXMLTable(this);
-        }
-    };
-    xhttp.open("GET", "xml/toDoList.xml", true);
-    xhttp.send();
-    */
 }
 
 function displayXMLTable(xml){
@@ -59,37 +43,42 @@ function displayXMLTable(xml){
         x[i].getElementsByTagName("dest")[0].childNodes[0].nodeValue +
         "</td><td>" +
         "<span id=i onclick='removeXMLDocItem()' class='close'>&times;</span>" +
-        "</td></tr>";
-      
+        "</td></tr>"; 
     }
     document.getElementById("printTable").innerHTML = table;
-    /*
-    document.getElementById('printHere').innerHTML = xml;
-    var x, i, list, item, dest, xmlDoc;
-    xmlDoc = xml.responseXML;
-    item = "";
-    dest = "";
-    x = xmlDoc.getElementsByTagName('todo');
-    var y = x[0].getElementsByTagName('item')[0].childNodes[0].nodeValue;
-    document.getElementById('printHere').innerHTML = y;
-    for(i = 0; i < x.length; i++){
-
-        item = x[i].getElementsByTagName('item')[0].childNodes[0].nodeValue;
-        dest = x[i].getElementsByTagName('dest')[0].childNodes[0].nodeValue;
-
-        /*
-        list += "<li class = 'w3-bar'> <span id = 'removeItem'" +
-            "class = 'w3-bar-item w3-button w3-white w3-large w3-right>X</span>" +
-            "<div class='w3-bar-item'> " + 
-                "<span class='w3-large'>" x[i].getElementsByTagName('item')[0].childNodes[0].nodeValue; "</span>" +
-                "<"
-            "</div";            
-    }
-   document.getElementById('printHere').innerHTML = item;
-*/
 }
+/*
+function addToXML(){
+    var item = document.getElementById('item').value;
+    var dest = document.getElementById('dest').value;
 
+   // alert("item entered: " + item +
+    //      "Destination: " + dest);
+/*
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+           new function(this){
+                var xmlDoc = this.xmlResponseXML;
 
+                var newItemElement = xmlDoc.createElement('todo');
+
+                newItemElement.appendChild(xmlDoc.createElement('item', item));
+                newItemElement.appendChild(xmlDoc.createElement('dest', dest));
+
+                var x = xmlDoc.getElementsByTagName('list')[0];
+
+                x.appendChild(newItemElement);
+
+                displayXMLTable(this);
+            };
+        }
+    };
+    xmlhttp.open("GET", "xml/toDoList.xml", true);
+    xmlhttp.send();
+
+}
+*/
 function callGoogle(){
     //https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=tires&inputtype=textquery&fields=formatted_address,name,open_now,rating&locationbias=circle:2000@42.3330,83.0465&key=AIzaSyD1BD2SIhcmvk7SmV1NGBrgaEQOLqjx4fI;
     
@@ -100,13 +89,14 @@ function callGoogle(){
     //if location is turned off, ask to turn it on, else run the call
     cordova.plugins.diagnostic.isGpsLocationEnabled(function(enabled){
         //GPS is on, find location
-        if(enabled == "enabled"){
-
+        //alert(enabled);
+        if(enabled){
+            navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
         } else {
             requestGPS();
         }
     });
-    navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
+    //navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
 }
 
 
@@ -114,23 +104,24 @@ function onSuccess(position) {
     var lat = position.coords.latitude;
     var long = position.coords.longitude;
     var currentLoc = lat + "," + long; 
-    var tempLocation = "250 Riverfront Dr, Detroit, MI 48226";
+    var tempLocation = "1801 Michigan Ave, Detroit, MI 48216";
+    var locName = 'Firestone Complete Auto Care';
 
 
     document.getElementById('printApiCall').innerHTML = "lat: " + lat + "\n long: " + long;
 
-    if(window.confirm("A location was found to handle one of your items! Would you like to go " +
-            "there now? \n\n Location found: " + tempLocation)){
-                
-            window.open("geo:0,0?q=" + tempLocation + "(" + tempLocation + ")" + '_system');
+    if(currentLoc != ""){
+        if(window.confirm("A location was found to handle one of your items! Would you like to go " +
+            "there now? \n\nItem: Tires \nLocation found: " + locName)){
+                window.open("geo:0,0?q=" + tempLocation + "(" + tempLocation + ")" + '_system');
         }
-    
+    }
+
     //window.open("geo:0,0?q=" + currentLoc + "(" + currentLoc + ")" + '_system');
     
     //window.open("geo:0,0?q=" + tempLocation + "(" + tempLocation + ")" + '_system');
 
     //Call up google and get an item based off of phone's current position at time oh hitting button.
-    
     var HTTPREQ = "https://maps.googleapis.com/maps/api/geocode/xml?latlng=" + lat + "," + long +"&key=AIzaSyD1BD2SIhcmvk7SmV1NGBrgaEQOLqjx4fI"; 
 
     var URLREQ = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=tires&inputtype=textquery&fields=formatted_address,name,rating&locationbias=circle:2000@42.3330,83.0465&key=AIzaSyD1BD2SIhcmvk7SmV1NGBrgaEQOLqjx4fI";
@@ -145,9 +136,7 @@ function onSuccess(position) {
         }
     });
 
-    //if(currentLoc != ""){
     notifyUser(currentLoc);
-    //}
 
     //directions.navigateTo(lat,long);
         
@@ -179,6 +168,7 @@ function onSuccess(position) {
     //document.getElementById('printApiCall').innerHTML = returnJSON;
 }
 
+//For some reason my notifications don't work.
 function notifyUser(currentLoc){
     let props = cordova.plugins.notification.local.getDefaults();
 
@@ -199,7 +189,7 @@ function notifyUser(currentLoc){
     };
 
     if(prop.actions){
-        noteOptions.actions = [{id: "yes", title: "Take me there"}, {id: "no", title: "No"}];
+        noteOptions.actions = [{id: "yes", title: "Yes"}, {id: "no", title: "No"}];
     }
 
     cordova.plugins.notification.local.schedule(noteOptions);
